@@ -11,6 +11,7 @@ import org.springframework.context.annotation.Profile;
 import com.moufog.workshop.entities.Category;
 import com.moufog.workshop.entities.Order;
 import com.moufog.workshop.entities.OrderItem;
+import com.moufog.workshop.entities.Payment;
 import com.moufog.workshop.entities.Product;
 import com.moufog.workshop.entities.User;
 import com.moufog.workshop.entities.enums.OrderStatus;
@@ -63,6 +64,11 @@ public class TestConfig implements CommandLineRunner {
 		OrderItem oi3 = new OrderItem(o2, p3, 2 , p1.getPrice());
 		OrderItem oi4 = new OrderItem(o3, p5, 2 , p5.getPrice());
 		
+		Payment pay1 = new Payment(null, Instant.parse("2019-06-20T21:53:07Z"), o1);
+		o1.setPayment(pay1); //Associado o pagamento com o pedido
+		
+		
+		
 		// Salvando no banco de dados
 		categoryRepository.saveAll(Arrays.asList(cat1, cat2, cat3));
 		userRepository.saveAll(Arrays.asList(u1, u2));
@@ -73,7 +79,7 @@ public class TestConfig implements CommandLineRunner {
 
 		
 		
-		
+		orderRepository.save(o1);
 		
 		
 		p1.getCategories().add(cat2);
